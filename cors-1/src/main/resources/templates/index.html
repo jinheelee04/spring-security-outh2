@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /*
+        preflight request를 생략하려면 아래와 같은 조건들이 모두 만족되어야 한다
+        1) 요청의 메소드가 GET, HEAD, POST 중 하나여야 한다
+        2) 요청의 헤더가 Accept, Accept-Language, Content-Language, Content-type, DPR, Downlink, Save-Data, Viewport-Width, Width인 경우에만 적용된다
+        3) Content-Type 헤더가 application/x-www-form-urlencoded, multipart/form-data, text/plain 중 하나여야 한다
+        기본적으로 요즘 HTTP 요청은 application/json 또는 text/xml로 이뤄진다.
+        따라서, preflight request가 이뤄지는 경우가 대다수
+         */
+        function corsTest(){
+            fetch("http://localhost:8081/api/users",{
+                method: "GET",
+                headers : {
+                    "Content-Type" : "text/xml",
+                }
+            }).then(response=>{
+                response.json().then(function(data){
+                    console.log(data);
+                })
+            })
+        }
+    </script>
+</head>
+<body>
+<button name="corsTest" onclick="corsTest()">corsTest</button>
+</body>
+</html>
